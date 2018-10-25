@@ -1,0 +1,45 @@
+
+{
+    "campusiotApp": {
+        "message" : {
+            "home": {
+                "title": "Messages",
+                "createLabel": "Créer un nouveau Message",
+                "createOrEditLabel": "Créer ou éditer un Message"
+            },
+            "created": "Un nouveau Message a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Message avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Message avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Message {{ id }} ?"
+            },
+            "detail": {
+                "title": "Message"
+            },
+            "date": "Date",
+            "type": "Type",
+            "fcnt": "Fcnt",
+            "network": "Network",
+            "payload": "Payload",
+            "json": "Json",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
+            "altitude": "Altitude",
+            "batteryLevel": "Battery Level",
+            "sentBy": "Sent By",
+            "deviceOwner": "Device Owner",
+            "help": {
+                "date": "The message date",
+                "type": "The message type",
+                "fcnt": "The message fcnt (0 for JOIN)",
+                "network": "The Device network",
+                "payload": "The payload",
+                "json": "The json message sent by the network server",
+                "latitude": "The latitude of the device",
+                "longitude": "The latitude of the device",
+                "altitude": "The altitude of the device",
+                "batteryLevel": "The battery level of the device"
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "campusiotApp": {
+        "Network" : {
+            "null": "",
+            "CAMPUSIOT": "CAMPUSIOT",
+            "TTN": "TTN",
+            "ORANGE": "ORANGE",
+            "OBJETNIOUS": "OBJETNIOUS"
+        }
+    }
+}

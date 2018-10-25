@@ -1,0 +1,113 @@
+{
+    "name": "Message",
+    "fields": [
+        {
+            "fieldName": "date",
+            "javadoc": "The message date",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "type",
+            "javadoc": "The message type",
+            "fieldType": "MessageType",
+            "fieldValues": "JOIN,DTUP,DTDN",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "fcnt",
+            "javadoc": "The message fcnt (0 for JOIN)",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "network",
+            "javadoc": "The Device network",
+            "fieldType": "Network",
+            "fieldValues": "CAMPUSIOT,TTN,ORANGE,OBJETNIOUS",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "payload",
+            "javadoc": "The payload",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "json",
+            "javadoc": "The json message sent by the network server",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "latitude",
+            "javadoc": "The latitude of the device",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": -90,
+            "fieldValidateRulesMax": 90
+        },
+        {
+            "fieldName": "longitude",
+            "javadoc": "The latitude of the device",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": -180,
+            "fieldValidateRulesMax": 180
+        },
+        {
+            "fieldName": "altitude",
+            "javadoc": "The altitude of the device",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "batteryLevel",
+            "javadoc": "The battery level of the device",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "sentBy",
+            "otherEntityName": "device",
+            "otherEntityField": "deveui"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "deviceOwner",
+            "otherEntityName": "user",
+            "otherEntityField": "login"
+        }
+    ],
+    "changelogDate": "20181025064038",
+    "entityTableName": "message",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": [
+        "campusiot"
+    ]
+}

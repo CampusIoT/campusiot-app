@@ -1,0 +1,41 @@
+{
+  "generator-jhipster": {
+    "clientPackageManager": "npm",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "enableHibernateCache": true,
+    "enableSwaggerCodegen": false,
+    "enableTranslation": true,
+    "jhiPrefix": "jhi",
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "messageBroker": false,
+    "nativeLanguage": "en",
+    "packageName": "fr.imag.campusiot.app",
+    "packageFolder": "fr/imag/campusiot/app",
+    "prodDatabaseType": "mysql",
+    "searchEngine": true,
+    "serviceDiscoveryType": false,
+    "skipClient": false,
+    "skipServer": false,
+    "testFrameworks": [],
+    "websocket": false,
+    "baseName": "campusiot",
+    "applicationType": "monolith",
+    "jhipsterVersion": "5.5.0",
+    "buildTool": "maven",
+    "skipUserManagement": false,
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "clientFramework": "angularX",
+    "serverPort": "8080",
+    "useSass": true,
+    "jwtSecretKey": "MjA1YTQzYTgxOGJlZTJiMmI3MDNlMDBjYzQwM2JmOGRkMGUwM2M5NWQ5OTBmNDFlNTkxZTMwNzU1ZmQ4MWZhYjI0Mjg1NzVkOTc4Y2RkMDczZWJlMGRmMmIzM2JjZTAzMTY3YzQzOWI2YTk2OWIwNzJiZDg0NThjNDU4NzA2ZWE="
+  },
+  "entities": [
+    "Device",
+    "Message"
+  ]
+}

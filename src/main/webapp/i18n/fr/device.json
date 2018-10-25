@@ -1,0 +1,58 @@
+
+{
+    "campusiotApp": {
+        "device" : {
+            "home": {
+                "title": "Devices",
+                "createLabel": "Créer un nouveau Device",
+                "createOrEditLabel": "Créer ou éditer un Device"
+            },
+            "created": "Un nouveau Device a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Device avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Device avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Device {{ id }} ?"
+            },
+            "detail": {
+                "title": "Device"
+            },
+            "name": "Name",
+            "location": "Location",
+            "model": "Model",
+            "network": "Network",
+            "deveui": "Deveui",
+            "appeui": "Appeui",
+            "appkey": "Appkey",
+            "delayBeforeOffline": "Delay Before Offline",
+            "createdAt": "Created At",
+            "registeredAt": "Registered At",
+            "lastMessageAt": "Last Message At",
+            "type": "Type",
+            "fcnt": "Fcnt",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
+            "altitude": "Altitude",
+            "batteryLevel": "Battery Level",
+            "createdBy": "Created By",
+            "help": {
+                "name": "The device name",
+                "location": "The device location",
+                "model": "The device model",
+                "network": "The device network",
+                "deveui": "The device DevEUI",
+                "appeui": "The device AppEUI",
+                "appkey": "The device AppKEY",
+                "delayBeforeOffline": "The delay in minutes before declaring the device offline",
+                "createdAt": "The creation date",
+                "registeredAt": "The network registration date",
+                "lastMessageAt": "The last message date",
+                "type": "The last message type",
+                "fcnt": "The last message fcnt (0 for JOIN)",
+                "latitude": "The last latitude of the device",
+                "longitude": "The last latitude of the device",
+                "altitude": "The last altitude of the device",
+                "batteryLevel": "The last battery level of the device"
+            }
+        }
+    }
+}

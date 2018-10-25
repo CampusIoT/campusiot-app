@@ -1,0 +1,10 @@
+{
+    "campusiotApp": {
+        "MessageType" : {
+            "null": "",
+            "JOIN": "JOIN",
+            "DTUP": "DTUP",
+            "DTDN": "DTDN"
+        }
+    }
+}

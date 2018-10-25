@@ -1,0 +1,114 @@
+application {
+  config {
+    baseName campusiot
+    applicationType monolith
+    packageName fr.imag.campusiot.app
+    languages 	[en, fr]
+    searchEngine true
+  }
+  entities *
+}
+
+EUI_LENGTH = 16
+KEY_LENGTH = 32
+TOKEN_LENGTH = 16
+
+// TODO should be an entity
+enum DeviceModel {
+  SICONIA, ADENUIS_TEMP, ADEUNIS_SENSOR, ASCOEL_IR, ASCOEL_PB, ELSYS_ERS, ELSYS_ELT, UNKNOWN
+}
+
+// TODO add public/private other networks
+enum Network {
+  CAMPUSIOT, TTN, ORANGE, OBJETNIOUS
+}
+
+entity Device {
+
+  /** The device name */
+  name String required,
+  /** The device location */
+  location String,
+  /** The device model */
+  model DeviceModel required,
+  /** The device network */
+  network Network, // null if it is not registered yet !
+  /** The device DevEUI */
+  deveui String required minlength(EUI_LENGTH) maxlength(EUI_LENGTH) pattern(/[a-fA-F0-9]*/),
+  /** The device AppEUI */
+  appeui String required minlength(EUI_LENGTH) maxlength(EUI_LENGTH) pattern(/[a-fA-F0-9]*/),
+  /** The device AppKEY */
+  appkey String required minlength(KEY_LENGTH) maxlength(KEY_LENGTH) pattern(/[a-fA-F0-9]*/),
+
+  /** The delay in minutes before declaring the device offline */
+  delayBeforeOffline Integer min(0),
+  /** The creation date */
+  createdAt Instant required,
+  /** The network registration date */
+  registeredAt Instant required,
+
+  /** The last message date */
+  lastMessageAt Instant,
+  /** The last message type */
+  type MessageType,
+  /** The last message fcnt (0 for JOIN)*/
+  fcnt Integer min(0),
+
+  // The following properties are extracted from the last json message.
+
+  /** The last latitude of the device */
+  latitude Float min(-90) max(90),
+  /** The last latitude of the device */
+  longitude Float min(-180) max(180),
+  /** The last altitude of the device */
+  altitude Integer,
+  /** The last battery level of the device */
+  batteryLevel Integer
+}
+
+enum MessageType {
+  JOIN, DTUP, DTDN
+}
+
+entity Message {
+  /** The message date */
+  date Instant required,
+  /** The message type */
+  type MessageType required,
+  /** The message fcnt (0 for JOIN)*/
+  fcnt Integer required min(0),
+  /** The Device network */
+  network Network required,
+  /** The payload */
+  payload Blob required,
+  /** The json message sent by the network server */
+  json TextBlob,
+
+  // The following properties are extracted from the json message.
+
+  /** The latitude of the device */
+  latitude Float min(-90) max(90),
+  /** The latitude of the device */
+  longitude Float min(-180) max(180),
+  /** The altitude of the device */
+  altitude Integer,
+  /** The battery level of the device */
+  batteryLevel Integer
+}
+
+// TODO Add entity Gateway
+
+relationship ManyToOne {
+    Message{sentBy(deveui)} to Device,
+    Message{DeviceOwner(login)} to User,
+    Device{createdBy(login)} to User
+}
+
+paginate Device with pagination
+paginate Message with infinite-scroll
+
+dto * with mapstruct
+service all with serviceImpl
+//angularSuffix * with campusiot
+//microservice * with campusiot
+//search * with elasticsearch

@@ -1,0 +1,85 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="campusiotApp.message.home.title">Messages</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-message" [routerLink]="['/message/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="campusiotApp.message.home.createLabel">
+            Create new Message
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="messages">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="date"><span jhiTranslate="campusiotApp.message.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="type"><span jhiTranslate="campusiotApp.message.type">Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fcnt"><span jhiTranslate="campusiotApp.message.fcnt">Fcnt</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="network"><span jhiTranslate="campusiotApp.message.network">Network</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="payload"><span jhiTranslate="campusiotApp.message.payload">Payload</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="json"><span jhiTranslate="campusiotApp.message.json">Json</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="latitude"><span jhiTranslate="campusiotApp.message.latitude">Latitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="longitude"><span jhiTranslate="campusiotApp.message.longitude">Longitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="altitude"><span jhiTranslate="campusiotApp.message.altitude">Altitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="batteryLevel"><span jhiTranslate="campusiotApp.message.batteryLevel">Battery Level</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="sentByDeveui"><span jhiTranslate="campusiotApp.message.sentBy">Sent By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="deviceOwnerLogin"><span jhiTranslate="campusiotApp.message.deviceOwner">Device Owner</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let message of messages ;trackBy: trackId">
+                <td><a [routerLink]="['/message', message.id, 'view' ]">{{message.id}}</a></td>
+                <td>{{message.date | date:'medium'}}</td>
+                <td jhiTranslate="{{'campusiotApp.MessageType.' + message.type}}">{{message.type}}</td>
+                <td>{{message.fcnt}}</td>
+                <td jhiTranslate="{{'campusiotApp.Network.' + message.network}}">{{message.network}}</td>
+                <td>
+                    <a *ngIf="message.payload" (click)="openFile(message.payloadContentType, message.payload)" jhiTranslate="entity.action.open">open</a>
+                    <span *ngIf="message.payload">{{message.payloadContentType}}, {{byteSize(message.payload)}}</span>
+                </td>
+                <td>{{message.json}}</td>
+                <td>{{message.latitude}}</td>
+                <td>{{message.longitude}}</td>
+                <td>{{message.altitude}}</td>
+                <td>{{message.batteryLevel}}</td>
+                <td>
+                    <div *ngIf="message.sentById">
+                        <a [routerLink]="['../device', message.sentById , 'view' ]" >{{message.sentByDeveui}}</a>
+                    </div>
+                </td>
+                <td>
+                    {{message.deviceOwnerLogin}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/message', message.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/message', message.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'message/'+ message.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

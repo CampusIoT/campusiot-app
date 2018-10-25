@@ -1,0 +1,171 @@
+{
+    "name": "Device",
+    "fields": [
+        {
+            "fieldName": "name",
+            "javadoc": "The device name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "location",
+            "javadoc": "The device location",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "model",
+            "javadoc": "The device model",
+            "fieldType": "DeviceModel",
+            "fieldValues": "SICONIA,ADENUIS_TEMP,ADEUNIS_SENSOR,ASCOEL_IR,ASCOEL_PB,ELSYS_ERS,ELSYS_ELT,UNKNOWN",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "network",
+            "javadoc": "The device network",
+            "fieldType": "Network",
+            "fieldValues": "CAMPUSIOT,TTN,ORANGE,OBJETNIOUS"
+        },
+        {
+            "fieldName": "deveui",
+            "javadoc": "The device DevEUI",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMinlength": 16,
+            "fieldValidateRulesMaxlength": 16,
+            "fieldValidateRulesPattern": "[a-fA-F0-9]*"
+        },
+        {
+            "fieldName": "appeui",
+            "javadoc": "The device AppEUI",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMinlength": 16,
+            "fieldValidateRulesMaxlength": 16,
+            "fieldValidateRulesPattern": "[a-fA-F0-9]*"
+        },
+        {
+            "fieldName": "appkey",
+            "javadoc": "The device AppKEY",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMinlength": 32,
+            "fieldValidateRulesMaxlength": 32,
+            "fieldValidateRulesPattern": "[a-fA-F0-9]*"
+        },
+        {
+            "fieldName": "delayBeforeOffline",
+            "javadoc": "The delay in minutes before declaring the device offline",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "createdAt",
+            "javadoc": "The creation date",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "registeredAt",
+            "javadoc": "The network registration date",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastMessageAt",
+            "javadoc": "The last message date",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "type",
+            "javadoc": "The last message type",
+            "fieldType": "MessageType",
+            "fieldValues": "JOIN,DTUP,DTDN"
+        },
+        {
+            "fieldName": "fcnt",
+            "javadoc": "The last message fcnt (0 for JOIN)",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "latitude",
+            "javadoc": "The last latitude of the device",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": -90,
+            "fieldValidateRulesMax": 90
+        },
+        {
+            "fieldName": "longitude",
+            "javadoc": "The last latitude of the device",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": -180,
+            "fieldValidateRulesMax": 180
+        },
+        {
+            "fieldName": "altitude",
+            "javadoc": "The last altitude of the device",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "batteryLevel",
+            "javadoc": "The last battery level of the device",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "createdBy",
+            "otherEntityName": "user",
+            "otherEntityField": "login"
+        }
+    ],
+    "changelogDate": "20181025064037",
+    "entityTableName": "device",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": [
+        "campusiot"
+    ]
+}

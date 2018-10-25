@@ -1,0 +1,180 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-message-heading" jhiTranslate="campusiotApp.message.home.createOrEditLabel">Create or edit a Message</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!message.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="message.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="campusiotApp.message.date" for="field_date" [ngbTooltip]="'campusiotApp.message.help.date' | translate">Date</label>
+                    <div class="d-flex">
+                        <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="date"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.date?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="campusiotApp.message.type" for="field_type" [ngbTooltip]="'campusiotApp.message.help.type' | translate">Type</label>
+                    <select class="form-control" name="type" [(ngModel)]="message.type" id="field_type"  required>
+                        <option value="JOIN">{{'campusiotApp.MessageType.JOIN' | translate}}</option>
+                        <option value="DTUP">{{'campusiotApp.MessageType.DTUP' | translate}}</option>
+                        <option value="DTDN">{{'campusiotApp.MessageType.DTDN' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="campusiotApp.message.fcnt" for="field_fcnt" [ngbTooltip]="'campusiotApp.message.help.fcnt' | translate">Fcnt</label>
+                    <input type="number" class="form-control" name="fcnt" id="field_fcnt"
+                        [(ngModel)]="message.fcnt" required min="0" jhiMin="0"/>
+                    <div [hidden]="!(editForm.controls.fcnt?.dirty && editForm.controls.fcnt?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.fcnt?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.fcnt?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.fcnt?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="campusiotApp.message.network" for="field_network" [ngbTooltip]="'campusiotApp.message.help.network' | translate">Network</label>
+                    <select class="form-control" name="network" [(ngModel)]="message.network" id="field_network"  required>
+                        <option value="CAMPUSIOT">{{'campusiotApp.Network.CAMPUSIOT' | translate}}</option>
+                        <option value="TTN">{{'campusiotApp.Network.TTN' | translate}}</option>
+                        <option value="ORANGE">{{'campusiotApp.Network.ORANGE' | translate}}</option>
+                        <option value="OBJETNIOUS">{{'campusiotApp.Network.OBJETNIOUS' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.network?.dirty && editForm.controls.network?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.network?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="campusiotApp.message.payload" for="field_payload" [ngbTooltip]="'campusiotApp.message.help.payload' | translate">Payload</label>
+                    <div>
+                        <div *ngIf="message.payload" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(message.payloadContentType, message.payload)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{message.payloadContentType}}, {{byteSize(message.payload)}}</span>
+                            <button type="button" (click)="message.payload=null;message.payloadContentType=null;"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_payload" (change)="setFileData($event, message, 'payload', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="payload" id="field_payload"
+                        [(ngModel)]="message.payload" required/>
+                    <input type="hidden" class="form-control" name="payloadContentType" id="field_payloadContentType"
+                        [(ngModel)]="message.payloadContentType" />
+                    <div [hidden]="!(editForm.controls.payload?.dirty && editForm.controls.payload?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.payload?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="campusiotApp.message.json" for="field_json" [ngbTooltip]="'campusiotApp.message.help.json' | translate">Json</label>
+                    <textarea class="form-control" name="json" id="field_json"
+                        [(ngModel)]="message.json" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="campusiotApp.message.latitude" for="field_latitude" [ngbTooltip]="'campusiotApp.message.help.latitude' | translate">Latitude</label>
+                    <input type="number" class="form-control" name="latitude" id="field_latitude"
+                        [(ngModel)]="message.latitude" min="-90" jhiMin="-90" max="90" jhiMax="90"/>
+                    <div [hidden]="!(editForm.controls.latitude?.dirty && editForm.controls.latitude?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.latitude?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: -90 }">
+                            This field should be at least -90.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.latitude?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 90 }">
+                            This field cannot be more than 90.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.latitude?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="campusiotApp.message.longitude" for="field_longitude" [ngbTooltip]="'campusiotApp.message.help.longitude' | translate">Longitude</label>
+                    <input type="number" class="form-control" name="longitude" id="field_longitude"
+                        [(ngModel)]="message.longitude" min="-180" jhiMin="-180" max="180" jhiMax="180"/>
+                    <div [hidden]="!(editForm.controls.longitude?.dirty && editForm.controls.longitude?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.longitude?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: -180 }">
+                            This field should be at least -180.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.longitude?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 180 }">
+                            This field cannot be more than 180.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.longitude?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="campusiotApp.message.altitude" for="field_altitude" [ngbTooltip]="'campusiotApp.message.help.altitude' | translate">Altitude</label>
+                    <input type="number" class="form-control" name="altitude" id="field_altitude"
+                        [(ngModel)]="message.altitude" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="campusiotApp.message.batteryLevel" for="field_batteryLevel" [ngbTooltip]="'campusiotApp.message.help.batteryLevel' | translate">Battery Level</label>
+                    <input type="number" class="form-control" name="batteryLevel" id="field_batteryLevel"
+                        [(ngModel)]="message.batteryLevel" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="campusiotApp.message.sentBy" for="field_sentBy">Sent By</label>
+                    <select class="form-control" id="field_sentBy" name="sentBy" [(ngModel)]="message.sentById" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="deviceOption.id" *ngFor="let deviceOption of devices; trackBy: trackDeviceById">{{deviceOption.deveui}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="campusiotApp.message.deviceOwner" for="field_deviceOwner">Device Owner</label>
+                    <select class="form-control" id="field_deviceOwner" name="deviceOwner" [(ngModel)]="message.deviceOwnerId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

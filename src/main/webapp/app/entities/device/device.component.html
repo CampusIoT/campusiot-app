@@ -1,0 +1,98 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="campusiotApp.device.home.title">Devices</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-device" [routerLink]="['/device/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="campusiotApp.device.home.createLabel">
+            Create new Device
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="devices">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="name"><span jhiTranslate="campusiotApp.device.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="location"><span jhiTranslate="campusiotApp.device.location">Location</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="model"><span jhiTranslate="campusiotApp.device.model">Model</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="network"><span jhiTranslate="campusiotApp.device.network">Network</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="deveui"><span jhiTranslate="campusiotApp.device.deveui">Deveui</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="appeui"><span jhiTranslate="campusiotApp.device.appeui">Appeui</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="appkey"><span jhiTranslate="campusiotApp.device.appkey">Appkey</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="delayBeforeOffline"><span jhiTranslate="campusiotApp.device.delayBeforeOffline">Delay Before Offline</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdAt"><span jhiTranslate="campusiotApp.device.createdAt">Created At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="registeredAt"><span jhiTranslate="campusiotApp.device.registeredAt">Registered At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastMessageAt"><span jhiTranslate="campusiotApp.device.lastMessageAt">Last Message At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="type"><span jhiTranslate="campusiotApp.device.type">Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fcnt"><span jhiTranslate="campusiotApp.device.fcnt">Fcnt</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="latitude"><span jhiTranslate="campusiotApp.device.latitude">Latitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="longitude"><span jhiTranslate="campusiotApp.device.longitude">Longitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="altitude"><span jhiTranslate="campusiotApp.device.altitude">Altitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="batteryLevel"><span jhiTranslate="campusiotApp.device.batteryLevel">Battery Level</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdByLogin"><span jhiTranslate="campusiotApp.device.createdBy">Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let device of devices ;trackBy: trackId">
+                <td><a [routerLink]="['/device', device.id, 'view' ]">{{device.id}}</a></td>
+                <td>{{device.name}}</td>
+                <td>{{device.location}}</td>
+                <td jhiTranslate="{{'campusiotApp.DeviceModel.' + device.model}}">{{device.model}}</td>
+                <td jhiTranslate="{{'campusiotApp.Network.' + device.network}}">{{device.network}}</td>
+                <td>{{device.deveui}}</td>
+                <td>{{device.appeui}}</td>
+                <td>{{device.appkey}}</td>
+                <td>{{device.delayBeforeOffline}}</td>
+                <td>{{device.createdAt | date:'medium'}}</td>
+                <td>{{device.registeredAt | date:'medium'}}</td>
+                <td>{{device.lastMessageAt | date:'medium'}}</td>
+                <td jhiTranslate="{{'campusiotApp.MessageType.' + device.type}}">{{device.type}}</td>
+                <td>{{device.fcnt}}</td>
+                <td>{{device.latitude}}</td>
+                <td>{{device.longitude}}</td>
+                <td>{{device.altitude}}</td>
+                <td>{{device.batteryLevel}}</td>
+                <td>
+                    {{device.createdByLogin}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/device', device.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/device', device.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'device/'+ device.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="devices && devices.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

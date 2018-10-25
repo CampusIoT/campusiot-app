@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="message">
+            <h2><span jhiTranslate="campusiotApp.message.detail.title">Message</span> {{message.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="campusiotApp.message.date" [ngbTooltip]="'campusiotApp.message.help.date' | translate">Date</span></dt>
+                <dd>
+                    <span>{{message.date}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.message.type" [ngbTooltip]="'campusiotApp.message.help.type' | translate">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'campusiotApp.MessageType.' + message.type}}">{{message.type}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.message.fcnt" [ngbTooltip]="'campusiotApp.message.help.fcnt' | translate">Fcnt</span></dt>
+                <dd>
+                    <span>{{message.fcnt}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.message.network" [ngbTooltip]="'campusiotApp.message.help.network' | translate">Network</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'campusiotApp.Network.' + message.network}}">{{message.network}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.message.payload" [ngbTooltip]="'campusiotApp.message.help.payload' | translate">Payload</span></dt>
+                <dd>
+                    <div *ngIf="message.payload">
+                        <a (click)="openFile(message.payloadContentType, message.payload)" jhiTranslate="entity.action.open">open</a>
+                        {{message.payloadContentType}}, {{byteSize(message.payload)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.message.json" [ngbTooltip]="'campusiotApp.message.help.json' | translate">Json</span></dt>
+                <dd>
+                    <span>{{message.json}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.message.latitude" [ngbTooltip]="'campusiotApp.message.help.latitude' | translate">Latitude</span></dt>
+                <dd>
+                    <span>{{message.latitude}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.message.longitude" [ngbTooltip]="'campusiotApp.message.help.longitude' | translate">Longitude</span></dt>
+                <dd>
+                    <span>{{message.longitude}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.message.altitude" [ngbTooltip]="'campusiotApp.message.help.altitude' | translate">Altitude</span></dt>
+                <dd>
+                    <span>{{message.altitude}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.message.batteryLevel" [ngbTooltip]="'campusiotApp.message.help.batteryLevel' | translate">Battery Level</span></dt>
+                <dd>
+                    <span>{{message.batteryLevel}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.message.sentBy">Sent By</span></dt>
+                <dd>
+                    <div *ngIf="message.sentById">
+                        <a [routerLink]="['/device', message.sentById, 'view']">{{message.sentByDeveui}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.message.deviceOwner">Device Owner</span></dt>
+                <dd>
+                    {{message.deviceOwnerLogin}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/message', message.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

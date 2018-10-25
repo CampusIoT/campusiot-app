@@ -1,0 +1,15 @@
+{
+    "campusiotApp": {
+        "DeviceModel" : {
+            "null": "",
+            "SICONIA": "SICONIA",
+            "ADENUIS_TEMP": "ADENUIS_TEMP",
+            "ADEUNIS_SENSOR": "ADEUNIS_SENSOR",
+            "ASCOEL_IR": "ASCOEL_IR",
+            "ASCOEL_PB": "ASCOEL_PB",
+            "ELSYS_ERS": "ELSYS_ERS",
+            "ELSYS_ELT": "ELSYS_ELT",
+            "UNKNOWN": "UNKNOWN"
+        }
+    }
+}

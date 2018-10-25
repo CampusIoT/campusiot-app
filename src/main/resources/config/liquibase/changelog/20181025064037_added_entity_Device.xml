@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Device.
+    -->
+    <changeSet id="20181025064037-1" author="jhipster">
+        <createTable tableName="device">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)" remarks="The device name">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="location" type="varchar(255)" remarks="The device location">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="model" type="varchar(255)" remarks="The device model">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="jhi_network" type="varchar(255)" remarks="The device network">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="deveui" type="varchar(16)" remarks="The device DevEUI">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="appeui" type="varchar(16)" remarks="The device AppEUI">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="appkey" type="varchar(32)" remarks="The device AppKEY">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="delay_before_offline" type="integer" remarks="The delay in minutes before declaring the device offline">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_at" type="datetime" remarks="The creation date">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="registered_at" type="datetime" remarks="The network registration date">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="last_message_at" type="datetime" remarks="The last message date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="jhi_type" type="varchar(255)" remarks="The last message type">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="fcnt" type="integer" remarks="The last message fcnt (0 for JOIN)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="latitude" type="${floatType}" remarks="The last latitude of the device">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="longitude" type="${floatType}" remarks="The last latitude of the device">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="altitude" type="integer" remarks="The last altitude of the device">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="battery_level" type="integer" remarks="The last battery level of the device">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <dropDefaultValue tableName="device" columnName="created_at" columnDataType="datetime"/>
+        <dropDefaultValue tableName="device" columnName="registered_at" columnDataType="datetime"/>
+        <dropDefaultValue tableName="device" columnName="last_message_at" columnDataType="datetime"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

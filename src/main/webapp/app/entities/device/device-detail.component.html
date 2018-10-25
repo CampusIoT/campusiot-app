@@ -1,0 +1,95 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="device">
+            <h2><span jhiTranslate="campusiotApp.device.detail.title">Device</span> {{device.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="campusiotApp.device.name" [ngbTooltip]="'campusiotApp.device.help.name' | translate">Name</span></dt>
+                <dd>
+                    <span>{{device.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.location" [ngbTooltip]="'campusiotApp.device.help.location' | translate">Location</span></dt>
+                <dd>
+                    <span>{{device.location}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.model" [ngbTooltip]="'campusiotApp.device.help.model' | translate">Model</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'campusiotApp.DeviceModel.' + device.model}}">{{device.model}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.network" [ngbTooltip]="'campusiotApp.device.help.network' | translate">Network</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'campusiotApp.Network.' + device.network}}">{{device.network}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.deveui" [ngbTooltip]="'campusiotApp.device.help.deveui' | translate">Deveui</span></dt>
+                <dd>
+                    <span>{{device.deveui}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.appeui" [ngbTooltip]="'campusiotApp.device.help.appeui' | translate">Appeui</span></dt>
+                <dd>
+                    <span>{{device.appeui}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.appkey" [ngbTooltip]="'campusiotApp.device.help.appkey' | translate">Appkey</span></dt>
+                <dd>
+                    <span>{{device.appkey}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.delayBeforeOffline" [ngbTooltip]="'campusiotApp.device.help.delayBeforeOffline' | translate">Delay Before Offline</span></dt>
+                <dd>
+                    <span>{{device.delayBeforeOffline}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.createdAt" [ngbTooltip]="'campusiotApp.device.help.createdAt' | translate">Created At</span></dt>
+                <dd>
+                    <span>{{device.createdAt}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.registeredAt" [ngbTooltip]="'campusiotApp.device.help.registeredAt' | translate">Registered At</span></dt>
+                <dd>
+                    <span>{{device.registeredAt}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.lastMessageAt" [ngbTooltip]="'campusiotApp.device.help.lastMessageAt' | translate">Last Message At</span></dt>
+                <dd>
+                    <span>{{device.lastMessageAt}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.type" [ngbTooltip]="'campusiotApp.device.help.type' | translate">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'campusiotApp.MessageType.' + device.type}}">{{device.type}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.fcnt" [ngbTooltip]="'campusiotApp.device.help.fcnt' | translate">Fcnt</span></dt>
+                <dd>
+                    <span>{{device.fcnt}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.latitude" [ngbTooltip]="'campusiotApp.device.help.latitude' | translate">Latitude</span></dt>
+                <dd>
+                    <span>{{device.latitude}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.longitude" [ngbTooltip]="'campusiotApp.device.help.longitude' | translate">Longitude</span></dt>
+                <dd>
+                    <span>{{device.longitude}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.altitude" [ngbTooltip]="'campusiotApp.device.help.altitude' | translate">Altitude</span></dt>
+                <dd>
+                    <span>{{device.altitude}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.batteryLevel" [ngbTooltip]="'campusiotApp.device.help.batteryLevel' | translate">Battery Level</span></dt>
+                <dd>
+                    <span>{{device.batteryLevel}}</span>
+                </dd>
+                <dt><span jhiTranslate="campusiotApp.device.createdBy">Created By</span></dt>
+                <dd>
+                    {{device.createdByLogin}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/device', device.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

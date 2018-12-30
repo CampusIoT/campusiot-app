@@ -44,7 +44,7 @@ public class MqttSinkImpl {
 	private final Logger log = LoggerFactory.getLogger(MqttSinkImpl.class);
 
 	// TODO should be configured by IoD
-	private String brokerUrl = "tcp://test.mosquitto.org:1883";
+	private String brokerUrl = "tcp://localhost:1883";
 	private String clientId = "campus-iot-123456789";
 	private String topic = "application/#";
 

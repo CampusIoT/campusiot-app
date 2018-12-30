@@ -1,7 +1,7 @@
-BROKER=test.mosquitto.org
+BROKER=localhost
+#BROKER=test.mosquitto.org
 #BROKER=lora.campusiot.imag.fr
 
 mosquitto_pub -m "TEST" -t application/123 -h $BROKER
 
 mosquitto_pub -m '{"deveui":"1234567890ABCDEF","payload":"0102","fcnt":9999,"devaddr":1234}' -t application/123/tx -h $BROKER
-

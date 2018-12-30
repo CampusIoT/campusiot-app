@@ -1,0 +1,18 @@
+# Copyright (C) CampusIoT,  - All Rights Reserved
+# Written by CampusIoT Dev Team, 2016-2018
+
+version: "2"
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    restart: always
+    ports:
+      - 1883:1883 # Plain MQTT
+#      - 8883:8883 # MQTT over TLS/SSL
+#      - 9001:9001 # Plain WebSockets
+#      - 9883:9883 # WebSockets over TLS/SSL
+#    volumes:
+#      - ./mosquitto/config:/mosquitto/config
+#      - ./mosquitto/mqtt/data:/mosquitto/data
+#      - ./mosquitto/mqtt/log:/mosquitto/log

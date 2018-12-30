@@ -1,3 +1,6 @@
+# Copyright (C) CampusIoT,  - All Rights Reserved
+# Written by CampusIoT Dev Team, 2016-2018
+
 version: '2'
 services:
     campusiot-app:
@@ -13,3 +16,8 @@ services:
         extends:
             file: mysql.yml
             service: campusiot-mysql
+
+    campusiot-mosquitto:
+        extends:
+            file: mosquitto.yml
+            service: mosquitto

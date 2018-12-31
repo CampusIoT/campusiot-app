@@ -6,6 +6,7 @@ import java.util.Set;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.IntegrationComponentScan;
@@ -44,12 +45,31 @@ public class MqttSinkImpl {
 	private final Logger log = LoggerFactory.getLogger(MqttSinkImpl.class);
 
 	// TODO should be configured by IoD
-	private String brokerUrl = "tcp://localhost:1883";
-	private String clientId = "campus-iot-123456789";
-	private String topic = "application/#";
+
+	@Value("${mqtt.url:tcp://localhost:1883}")
+	private String brokerUrl;
+
+	@Value("${mqtt.cliendId:campus-iot-123456789}")
+	private String clientId;
+
+	@Value("${mqtt.topic:application/#}")
+	private String topic;
+
+	@Value("${mqtt.username:anUser}")
+	private String username;
+
+	@Value("${mqtt.password:__SUPER_SECRET_PASSWORD__}")
+	private String password;
+
+	@Value("${mqtt.qos:2}")
+	private int qos;
+
+	@Value("${mqtt.completionTimeout:5000}")
+	private int completionTimeout;
 
 	private DeviceRepository deviceRepository;
 	private DeviceService deviceService;
+
 	private MessageService messageService;
 	private NetworkParserService networkParserService;
 
@@ -72,8 +92,8 @@ public class MqttSinkImpl {
 		DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
 		MqttConnectOptions options = new MqttConnectOptions();
 		options.setServerURIs(new String[] { brokerUrl });
-		// options.setUserName("guest");
-		// options.setPassword("guest".toCharArray());
+		// options.setUserName(username);
+		// options.setPassword(password.toCharArray());
 		factory.setConnectionOptions(options);
 		return factory;
 	}
@@ -82,9 +102,9 @@ public class MqttSinkImpl {
 	public MessageProducer inbound() {
 		MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(brokerUrl, clientId,
 				mqttClientFactory(), topic);
-		adapter.setCompletionTimeout(5000);
+		adapter.setCompletionTimeout(completionTimeout);
 		adapter.setConverter(new DefaultPahoMessageConverter());
-		adapter.setQos(1);
+		adapter.setQos(qos);
 		adapter.setOutputChannel(mqttInputChannel());
 		return adapter;
 	}
@@ -129,7 +149,6 @@ public class MqttSinkImpl {
 
 					// TODO update the device
 					// deviceService.update(deviceDTO);
-
 					// messageService.create(messageDTO);
 					messageService.save(messageDTO);
 

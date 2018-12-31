@@ -126,3 +126,8 @@ jhipster:
 # ===================================================================
 
 # application:
+
+mqtt:
+    url: tcp://localhost:1883
+    topic: application/#
+

@@ -86,17 +86,17 @@ jhipster:
         #allow-credentials: true
         #max-age: 1800
     mail:
-        from: campusiot@localhost
+        from: campusiot@imag.fr
     swagger:
         default-include-pattern: /api/.*
-        title: campusiot API
-        description: campusiot API documentation
+        title: CampusIoT API
+        description: CampusIoT API documentation
         version: 0.0.1
         terms-of-service-url:
-        contact-name:
-        contact-url:
-        contact-email:
-        license:
+        contact-name: CampusIoT Dev Team
+        contact-url: http://campusiot.imag.fr/contact.php
+        contact-email: campusiot@imag.fr
+        license: EPL
         license-url:
 
 # ===================================================================

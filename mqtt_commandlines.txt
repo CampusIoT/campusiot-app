@@ -2,6 +2,15 @@ BROKER=localhost
 #BROKER=test.mosquitto.org
 #BROKER=lora.campusiot.imag.fr
 
-mosquitto_pub -m "TEST" -t application/123 -h $BROKER
+npm install mqtt -g
 
-mosquitto_pub -m '{"deveui":"1234567890ABCDEF","payload":"0102","fcnt":9999,"devaddr":1234}' -t application/123/tx -h $BROKER
+mqtt help publish
+
+mqtt pub '{"deveui":"1234567890ABCDEF","payload":"0102","fcnt":9999,"devaddr":1234}' -t 'application/123/tx' -h $BROKER -q 0
+
+mqtt pub '{"deveui":"1234567890ABCDEF","payload":"0102","fcnt":9999,"devaddr":1234}' -t 'application/234/tx' -h $BROKER -q 2
+
+mqtt pub '{"deveui":"1234567890ABCDEF","payload":"0102","fcnt":9999,"devaddr":1234}' -t 'application/234/tx' -h $BROKER -q 2 \
+	-u demo -P __SUPER_SECRET_PASSWORD__ -C mqtts
+
+mqtt sub -t 'application/#' -h $BROKER

@@ -139,3 +139,11 @@ jhipster:
 # ===================================================================
 
 # application:
+
+mqtt:
+    url: tls://lora.campusiot.imag.fr:8883
+    topic: application/#
+    username: demo
+    password: __SUPER_SECRET_PASSWORD__
+
+
